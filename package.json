@@ -1,0 +1,50 @@
+{
+  "name": "ecom-capture",
+  "productName": "Ecom Capture",
+  "version": "1.0.0",
+  "description": "Enregistreur d'écran avec micro pour Windows 10 et 11",
+  "main": "src/main.js",
+  "author": "Ecom Capture",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --x64 --publish never"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.ecomcapture.app",
+    "productName": "Ecom Capture",
+    "copyright": "Ecom Capture",
+    "directories": { "output": "dist" },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**"
+    ],
+    "artifactName": "Ecom-Capture-Setup-${version}.exe",
+    "win": {
+      "target": [ { "target": "nsis", "arch": [ "x64" ] } ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Ecom Capture",
+      "uninstallDisplayName": "Ecom Capture",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

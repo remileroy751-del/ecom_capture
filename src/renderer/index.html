@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecom Capture</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-rec="idle">
+
+<header class="top">
+  <div class="brand"><img src="../../assets/icon.png" alt="" width="28" height="28"><span>Ecom Capture</span></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab on" role="tab" data-tab="capture" data-i18n="tabCapture"></button>
+    <button class="tab" role="tab" data-tab="library" data-i18n="tabLibrary"></button>
+  </nav>
+  <div class="tools">
+    <div class="seg" id="langSeg" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr">FR</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <button class="icon-btn" id="themeBtn" type="button" data-i18n-title="themeToggle">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.2a6.8 6.8 0 1 0 6.8 6.8A5.4 5.4 0 0 1 10 3.2z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ CAPTURE ============ -->
+  <section id="tab-capture" class="stage">
+    <div class="sources">
+      <div class="sources-head">
+        <h2 data-i18n="sourcesTitle"></h2>
+        <div class="sources-tools">
+          <div class="seg" id="filterSeg" role="group">
+            <button type="button" data-filter="screen" data-i18n="screens"></button>
+            <button type="button" data-filter="window" data-i18n="windows"></button>
+          </div>
+          <button class="ghost sm" id="refreshSources" type="button" data-i18n="refresh"></button>
+        </div>
+      </div>
+      <div id="sourceGrid" class="grid"></div>
+    </div>
+
+    <aside class="panel">
+      <section class="group">
+        <h3 data-i18n="audio"></h3>
+        <label class="row sw">
+          <span class="lbl"><b data-i18n="mic"></b></span>
+          <input type="checkbox" class="switch" data-setting="micEnabled">
+        </label>
+        <div class="fields" id="micFields">
+          <select id="micSelect" data-setting="micDeviceId" data-i18n-title="micDevice"></select>
+          <label class="range">
+            <span data-i18n="micGain"></span>
+            <input type="range" min="0" max="2" step="0.05" data-setting="micGain" data-type="number">
+            <output id="gainOut"></output>
+          </label>
+          <label class="row chk"><input type="checkbox" data-setting="noiseSuppression"><span data-i18n="noise"></span></label>
+          <label class="row chk"><input type="checkbox" data-setting="echoCancellation"><span data-i18n="echo"></span></label>
+          <label class="row chk"><input type="checkbox" data-setting="autoGain"><span data-i18n="agc"></span></label>
+          <label class="row chk"><input type="checkbox" data-setting="separateMic"><span><span data-i18n="separateMic"></span><small data-i18n="separateMicHint"></small></span></label>
+        </div>
+        <label class="row sw">
+          <span class="lbl"><b data-i18n="sysAudio"></b><small data-i18n="sysAudioHint"></small></span>
+          <input type="checkbox" class="switch" data-setting="systemAudio">
+        </label>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="camera"></h3>
+        <label class="row sw">
+          <span class="lbl"><b data-i18n="camShow"></b><small data-i18n="camHint"></small></span>
+          <input type="checkbox" class="switch" data-setting="camEnabled">
+        </label>
+        <div class="fields" id="camFields">
+          <select id="camSelect" data-setting="camDeviceId" data-i18n-title="camDevice"></select>
+          <div class="inline">
+            <span data-i18n="camSize"></span>
+            <div class="seg" data-setting="camSize">
+              <button type="button" data-v="s" data-i18n="sizeS"></button>
+              <button type="button" data-v="m" data-i18n="sizeM"></button>
+              <button type="button" data-v="l" data-i18n="sizeL"></button>
+            </div>
+          </div>
+          <label class="row chk"><input type="checkbox" data-setting="camMirror"><span data-i18n="camMirror"></span></label>
+        </div>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="video"></h3>
+        <div class="inline">
+          <span data-i18n="fps"></span>
+          <div class="seg" data-setting="fps" data-type="number">
+            <button type="button" data-v="24">24</button>
+            <button type="button" data-v="30">30</button>
+            <button type="button" data-v="60">60</button>
+          </div>
+        </div>
+        <label class="field-l">
+          <span data-i18n="quality"></span>
+          <select data-setting="quality">
+            <option value="standard" data-i18n="qStd"></option>
+            <option value="high" data-i18n="qHigh"></option>
+            <option value="max" data-i18n="qMax"></option>
+          </select>
+        </label>
+        <label class="field-l">
+          <span data-i18n="resolution"></span>
+          <select data-setting="resolution">
+            <option value="native" data-i18n="resNative"></option>
+            <option value="1080">1080p</option>
+            <option value="720">720p</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="group">
+        <h3 data-i18n="output"></h3>
+        <label class="field-l">
+          <span data-i18n="format"></span>
+          <select data-setting="outputMode">
+            <option value="edit" data-i18n="fmtEdit"></option>
+            <option value="fast" data-i18n="fmtFast"></option>
+            <option value="raw" data-i18n="fmtRaw"></option>
+          </select>
+          <small id="fmtHint"></small>
+        </label>
+        <div class="field-l">
+          <span data-i18n="folder"></span>
+          <div class="path" id="folderPath"></div>
+          <div class="btns">
+            <button class="ghost sm" id="changeFolder" type="button" data-i18n="change"></button>
+            <button class="ghost sm" id="openFolder" type="button" data-i18n="openFolder"></button>
+          </div>
+        </div>
+        <label class="field-l">
+          <span data-i18n="countdown"></span>
+          <select data-setting="countdown" data-type="number">
+            <option value="0" data-i18n="none"></option>
+            <option value="3">3 s</option>
+            <option value="5">5 s</option>
+            <option value="10">10 s</option>
+          </select>
+        </label>
+        <label class="field-l">
+          <span data-i18n="autoStop"></span>
+          <select data-setting="autoStopMin" data-type="number">
+            <option value="0" data-i18n="never"></option>
+            <option value="10">10 min</option>
+            <option value="30">30 min</option>
+            <option value="60">60 min</option>
+            <option value="120">120 min</option>
+          </select>
+        </label>
+        <label class="row chk"><input type="checkbox" data-setting="keepOriginal"><span data-i18n="keepOriginal"></span></label>
+      </section>
+    </aside>
+  </section>
+
+  <!-- ============ ENREGISTREMENTS ============ -->
+  <section id="tab-library" class="library" hidden>
+    <div class="lib-head">
+      <h2 data-i18n="tabLibrary"></h2>
+      <div class="btns">
+        <button class="ghost sm" id="libFolder" type="button" data-i18n="openFolder"></button>
+        <button class="ghost sm" id="libRefresh" type="button" data-i18n="refresh"></button>
+      </div>
+    </div>
+    <div id="libList" class="lib-list"></div>
+  </section>
+</main>
+
+<footer class="dock">
+  <div class="rec-ctl">
+    <button id="recBtn" class="rec" type="button">
+      <span class="rec-ico" aria-hidden="true"></span>
+      <span id="recLabel"></span>
+      <kbd>F9</kbd>
+    </button>
+    <button id="pauseBtn" class="ghost pause" type="button" disabled>
+      <svg viewBox="0 0 16 16" aria-hidden="true" id="pauseIco"></svg>
+      <span id="pauseLabel"></span>
+      <kbd>F10</kbd>
+    </button>
+  </div>
+  <div class="clock" id="clock">00:00:00</div>
+  <div class="meter-wrap">
+    <span class="meter-lbl" id="meterLbl"></span>
+    <div class="vu" id="vu" aria-hidden="true"></div>
+  </div>
+  <div class="status">
+    <div id="statusMain" class="status-main"></div>
+    <div id="statusSub" class="status-sub"></div>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

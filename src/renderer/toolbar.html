@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:">
+<title>Ecom Capture</title>
+<style>
+  html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; user-select: none; }
+  body { display: flex; align-items: center; justify-content: center; font-family: "Bahnschrift", "Segoe UI Variable Display", "Segoe UI", sans-serif; }
+  .pill {
+    box-sizing: border-box; width: 232px; height: 48px; padding: 0 6px 0 16px;
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(20, 23, 30, .96); color: #eef1f6;
+    border: 1px solid rgba(255,255,255,.14); border-radius: 24px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    -webkit-app-region: drag;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: #ff3b47; flex: none; }
+  .rec .dot { animation: pulse 1.6s ease-in-out infinite; }
+  .paused .dot { background: #f2b630; animation: none; }
+  .time { font-size: 22px; letter-spacing: .02em; font-variant-numeric: tabular-nums; flex: 1; }
+  button {
+    -webkit-app-region: no-drag; width: 36px; height: 36px; border-radius: 50%;
+    border: 0; background: rgba(255,255,255,.08); color: #eef1f6; cursor: pointer;
+    display: grid; place-items: center; padding: 0;
+  }
+  button:hover { background: rgba(255,255,255,.18); }
+  button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  button.stop { background: #ff3b47; }
+  button.stop:hover { background: #ff5560; }
+  svg { width: 16px; height: 16px; fill: currentColor; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  @media (prefers-reduced-motion: reduce) { .rec .dot { animation: none; } }
+</style>
+</head>
+<body>
+  <div class="pill rec" id="pill">
+    <span class="dot"></span>
+    <span class="time" id="time">00:00:00</span>
+    <button id="pause" type="button"></button>
+    <button id="stop" class="stop" type="button">
+      <svg viewBox="0 0 16 16"><rect x="3" y="3" width="10" height="10" rx="2"/></svg>
+    </button>
+  </div>
+  <script src="toolbar.js"></script>
+</body>
+</html>
